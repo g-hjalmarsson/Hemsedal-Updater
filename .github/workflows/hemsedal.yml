@@ -1,0 +1,32 @@
+name: Hemsedal status
+
+on:
+  schedule:
+    - cron: "0 7 * * *"   # runs daily at 06:30 UTC
+  workflow_dispatch:       # allows manual run
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run script
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_RECIVER: ${{ secrets.EMAIL_RECIVER }}
+        run: |
+          python app.py
