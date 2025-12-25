@@ -2,8 +2,11 @@ name: Hemsedal status
 
 on:
   schedule:
-    - cron: "0 7 * * *"   # runs daily at 06:30 UTC
-  workflow_dispatch:       # allows manual run
+    - cron: "0 7 * * *"   # 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   run-script:
@@ -30,3 +33,11 @@ jobs:
           EMAIL_RECIVER: ${{ secrets.EMAIL_RECIVER }}
         run: |
           python app.py
+
+      - name: Commit CSV
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add -A
+          git commit -m "Update data.csv" || echo "No changes"
+          git push
