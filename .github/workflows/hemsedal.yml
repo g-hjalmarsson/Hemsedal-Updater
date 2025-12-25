@@ -2,7 +2,7 @@ name: Hemsedal status
 
 on:
   schedule:
-    - cron: "0 7 * * *"   # 07:00 UTC
+    - cron: "20 9 * * *"
   workflow_dispatch:
 
 permissions:
