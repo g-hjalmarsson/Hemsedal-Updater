@@ -9,6 +9,7 @@ from email.message import EmailMessage
 
 EMAIL_USER = os.environ["EMAIL_USER"]
 EMAIL_PASS = os.environ["EMAIL_PASS"]
+EMAIL_RECIVER = os.environ['EMAIL_RECIVER']
 
 #Create pandas database
 df = pd.DataFrame(columns=['Date', 'Open_Slopes', 'Total_Slopes', 'Slope_Ratio', 'Open_Lifts', 'Total_Lifts', "Lift_Ratio", "Resort"])
@@ -21,8 +22,8 @@ def send_email(total_slopes, open_slopes, slope_ratio, total_lifts, open_lifts, 
                     f"There is {open_lifts}/{total_lifts} lifts open.\n \n"
                     f"That is {lift_ratio}% of all lifts\n ")
     msg["Subject"] = 'Hemsedal'
-    msg['From'] = 'gustavhjalmarsson139@gmail.com'
-    msg['To'] = 'gustav.hjalmarsson1@outlook.com'
+    msg['From'] = EMAIL_USER
+    msg['To'] = EMAIL_RECIVER
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
         server.login(EMAIL_USER, EMAIL_PASS)
