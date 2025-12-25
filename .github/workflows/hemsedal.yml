@@ -3,7 +3,6 @@ name: Hemsedal status
 on:
   schedule:
       - cron: "0 8 * * *"
-  workflow_dispatch:
 
 permissions:
   contents: write
